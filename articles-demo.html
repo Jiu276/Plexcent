@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Pages Demo - ComplexCentral</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .demo-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .demo-links {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .demo-link {
+            display: block;
+            padding: 1rem;
+            background: var(--card-background);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.2s;
+        }
+        .demo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .demo-link h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+        }
+        .demo-link p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <span class="logo-text">ComplexCentral</span>
+                </a>
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="demo-container">
+        <h1>独立文章页面访问演示</h1>
+        <p>现在每篇文章都有独立的HTML文件，可以通过直接的URL访问。以下是所有文章的独立链接：</p>
+
+        <div class="demo-links">
+            <a href="article-1.html" class="demo-link" target="_blank">
+                <h3>article-1.html</h3>
+                <p>Best Productivity Apps for Remote Workers in 2025</p>
+            </a>
+
+            <a href="article-2.html" class="demo-link" target="_blank">
+                <h3>article-2.html</h3>
+                <p>Complete Guide to E-commerce Platforms: Shopify vs WooCommerce</p>
+            </a>
+
+            <a href="article-3.html" class="demo-link" target="_blank">
+                <h3>article-3.html</h3>
+                <p>Essential Web Development Tools Every Developer Should Know</p>
+            </a>
+
+            <a href="article-4.html" class="demo-link" target="_blank">
+                <h3>article-4.html</h3>
+                <p>Smart Home Security Systems: Protecting Your Digital Life</p>
+            </a>
+
+            <a href="article-5.html" class="demo-link" target="_blank">
+                <h3>article-5.html</h3>
+                <p>Top 10 Gaming Laptops Under $1500: Performance on a Budget</p>
+            </a>
+
+            <a href="article-6.html" class="demo-link" target="_blank">
+                <h3>article-6.html</h3>
+                <p>FrenchToast: Your Family's Destination for School Preparation</p>
+            </a>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: #f0f8ff; border-radius: 8px;">
+            <h3>功能特点：</h3>
+            <ul>
+                <li>✅ 每篇文章都有独立的URL地址</li>
+                <li>✅ 可以直接通过浏览器访问文章页面</li>
+                <li>✅ 支持分享和收藏特定文章</li>
+                <li>✅ SEO友好的URL结构</li>
+                <li>✅ 保持了完整的样式和功能</li>
+                <li>✅ 包含返回主页的导航链接</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,4 +1,7 @@
-// Sample blog posts data
+const fs = require('fs');
+const path = require('path');
+
+// Blog posts data (same as in script.js)
 const blogPosts = [
     {
         id: 1,
@@ -314,210 +317,6 @@ const blogPosts = [
     }
 ];
 
-// DOM elements
-const postsGrid = document.getElementById('postsGrid');
-const pagination = document.getElementById('pagination');
-const searchInput = document.getElementById('searchInput');
-const filterTags = document.querySelectorAll('.filter-tag');
-const backToTopBtn = document.getElementById('backToTop');
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.nav-menu');
-
-// State management
-let currentPage = 1;
-let currentCategory = 'all';
-let currentSearch = '';
-const postsPerPage = 6;
-
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    renderPosts();
-    setupEventListeners();
-    setupScrollEffects();
-});
-
-// Event listeners setup
-function setupEventListeners() {
-    // Search functionality
-    searchInput.addEventListener('input', handleSearch);
-
-    // Filter tags
-    filterTags.forEach(tag => {
-        tag.addEventListener('click', handleFilter);
-    });
-
-    // Mobile navigation
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    });
-
-    // Back to top button
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Close mobile menu when clicking on links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
-        });
-    });
-}
-
-// Search functionality
-function handleSearch(e) {
-    currentSearch = e.target.value.toLowerCase();
-    currentPage = 1;
-    renderPosts();
-}
-
-// Filter functionality
-function handleFilter(e) {
-    e.preventDefault();
-
-    // Update active filter
-    filterTags.forEach(tag => tag.classList.remove('active'));
-    e.target.classList.add('active');
-
-    currentCategory = e.target.dataset.category;
-    currentPage = 1;
-    renderPosts();
-}
-
-// Filter posts based on current criteria
-function getFilteredPosts() {
-    let filtered = [...blogPosts];
-
-    // Apply category filter
-    if (currentCategory !== 'all') {
-        filtered = filtered.filter(post => post.category === currentCategory);
-    }
-
-    // Apply search filter
-    if (currentSearch) {
-        filtered = filtered.filter(post =>
-            post.title.toLowerCase().includes(currentSearch) ||
-            post.excerpt.toLowerCase().includes(currentSearch)
-        );
-    }
-
-    // Sort by date (newest first)
-    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    return filtered;
-}
-
-// Render posts
-function renderPosts() {
-    const filteredPosts = getFilteredPosts();
-    const startIndex = (currentPage - 1) * postsPerPage;
-    const endIndex = startIndex + postsPerPage;
-    const postsToShow = filteredPosts.slice(startIndex, endIndex);
-
-    if (postsToShow.length === 0) {
-        postsGrid.innerHTML = '<p class="no-posts">No articles found. Try adjusting your search or filter criteria.</p>';
-        pagination.innerHTML = '';
-        return;
-    }
-
-    postsGrid.innerHTML = postsToShow.map(post => createPostCard(post)).join('');
-    renderPagination(filteredPosts.length);
-
-    // Add click event listeners to post cards
-    document.querySelectorAll('.post-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            // Prevent double navigation if clicking on the link
-            if (e.target.tagName === 'A') return;
-
-            const postId = card.dataset.postId;
-            window.open(`article-${postId}.html`, '_blank');
-        });
-    });
-}
-
-// Create post card HTML
-function createPostCard(post) {
-    const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-
-    const categoryNames = {
-        'product-reviews': 'Product Reviews',
-        'platform-guides': 'Platform Guides',
-        'tech-tips': 'Tech Tips',
-        'lifestyle': 'Lifestyle'
-    };
-
-    return `
-        <article class="post-card" data-post-id="${post.id}">
-            <img src="${post.image}" alt="${post.title}" class="post-image" loading="lazy">
-            <div class="post-content">
-                <span class="post-category">${categoryNames[post.category]}</span>
-                <h2 class="post-title">
-                    <a href="article-${post.id}.html" target="_blank">${post.title}</a>
-                </h2>
-                <p class="post-excerpt">${post.excerpt}</p>
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="fas fa-calendar"></i>
-                        ${formattedDate}
-                    </span>
-                    <span class="read-time">
-                        <i class="fas fa-clock"></i>
-                        ${post.readTime}
-                    </span>
-                </div>
-            </div>
-        </article>
-    `;
-}
-
-// Render pagination
-function renderPagination(totalPosts) {
-    const totalPages = Math.ceil(totalPosts / postsPerPage);
-
-    if (totalPages <= 1) {
-        pagination.innerHTML = '';
-        return;
-    }
-
-    let paginationHTML = '';
-
-    // Previous button
-    if (currentPage > 1) {
-        paginationHTML += `<a href="#" class="page-btn" onclick="changePage(${currentPage - 1})">&laquo; Previous</a>`;
-    }
-
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
-        if (i === currentPage) {
-            paginationHTML += `<span class="page-btn active">${i}</span>`;
-        } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
-            paginationHTML += `<a href="#" class="page-btn" onclick="changePage(${i})">${i}</a>`;
-        } else if (Math.abs(i - currentPage) === 2) {
-            paginationHTML += '<span class="page-btn">...</span>';
-        }
-    }
-
-    // Next button
-    if (currentPage < totalPages) {
-        paginationHTML += `<a href="#" class="page-btn" onclick="changePage(${currentPage + 1})">Next &raquo;</a>`;
-    }
-
-    pagination.innerHTML = paginationHTML;
-}
-
-// Change page
-function changePage(page) {
-    currentPage = page;
-    renderPosts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 // Generate article HTML content
 function generateArticleHTML(post) {
     return `<!DOCTYPE html>
@@ -568,13 +367,13 @@ function generateArticleHTML(post) {
 
                     <div class="share-buttons">
                         <h4>Share this article:</h4>
-                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter">
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}" target="_blank" class="share-btn twitter">
                             <i class="fab fa-twitter"></i> Twitter
                         </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn facebook">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}" target="_blank" class="share-btn facebook">
                             <i class="fab fa-facebook-f"></i> Facebook
                         </a>
-                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn linkedin">
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}" target="_blank" class="share-btn linkedin">
                             <i class="fab fa-linkedin-in"></i> LinkedIn
                         </a>
                     </div>
@@ -607,134 +406,22 @@ function generateArticleHTML(post) {
 </html>`;
 }
 
-// Generate static article pages
-function generateArticlePages() {
+// Generate all article files
+function generateAllArticles() {
     blogPosts.forEach(post => {
         const articleHTML = generateArticleHTML(post);
+        const fileName = `article-${post.id}.html`;
 
-        // Create a blob and download link for each article
-        const blob = new Blob([articleHTML], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
+        fs.writeFileSync(fileName, articleHTML, 'utf8');
+        console.log(`Generated ${fileName}: ${post.title}`);
+    });
 
-        // Create download link
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `article-${post.id}.html`;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-
-        // Auto-download (optional)
-        // link.click();
-
-        document.body.removeChild(link);
+    console.log(`\nSuccessfully generated ${blogPosts.length} article files!`);
+    console.log('You can now access articles directly via URLs like:');
+    blogPosts.forEach(post => {
+        console.log(`- article-${post.id}.html`);
     });
 }
 
-// Get article file name based on ID
-function getArticleFileName(postId) {
-    return `article-${postId}.html`;
-}
-
-// Open article - now supports both popup and direct file access
-function openArticle(postId) {
-    const post = blogPosts.find(p => p.id == postId);
-    if (!post) return;
-
-    // Try to open the static file first
-    const fileName = getArticleFileName(postId);
-
-    // Check if static file exists by trying to load it
-    fetch(fileName)
-        .then(response => {
-            if (response.ok) {
-                // Static file exists, open it directly
-                window.open(fileName, '_blank');
-            } else {
-                throw new Error('Static file not found');
-            }
-        })
-        .catch(() => {
-            // Fallback to dynamic generation
-            const articleHTML = generateArticleHTML(post);
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(articleHTML);
-            newWindow.document.close();
-        });
-}
-
-// Scroll effects
-function setupScrollEffects() {
-    let lastScrollTop = 0;
-    const header = document.querySelector('.header');
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        // Header hide/show on scroll
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
-
-        // Back to top button
-        if (scrollTop > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-
-        // Parallax effect for banner
-        const banner = document.querySelector('.hero-banner');
-        if (banner && scrollTop < window.innerHeight) {
-            banner.style.transform = `translateY(${scrollTop * 0.5}px)`;
-        }
-
-        lastScrollTop = scrollTop;
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-            }
-        });
-    }, observerOptions);
-
-    // Observe all post cards for animations
-    const observeElements = () => {
-        document.querySelectorAll('.post-card').forEach(card => {
-            observer.observe(card);
-        });
-    };
-
-    // Initial observation
-    setTimeout(observeElements, 100);
-
-    // Re-observe when new posts are loaded
-    const originalRenderPosts = renderPosts;
-    renderPosts = function() {
-        originalRenderPosts();
-        setTimeout(observeElements, 100);
-    };
-}
-
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+// Run the generator
+generateAllArticles();
