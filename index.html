@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplexCentral - Your Ultimate Guide to Products and Platforms</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">
+                    <img src="images/logo.svg" alt="ComplexCentral" class="logo-image">
+                    <span class="logo-text">ComplexCentral</span>
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Categories <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#" data-category="product-reviews">Product Reviews</a>
+                            <a href="#" data-category="platform-guides">Platform Guides</a>
+                            <a href="#" data-category="tech-tips">Tech Tips</a>
+                            <a href="#" data-category="lifestyle">Lifestyle</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="products.html" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="hero-banner">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h1 class="banner-title">Discover the Complex Made Simple</h1>
+                <p class="banner-subtitle">Your trusted guide to the best products, platforms, and insights in the digital world</p>
+                <div class="banner-buttons">
+                    <a href="#featured-posts" class="btn btn-primary">Explore Articles</a>
+                    <a href="products.html" class="btn btn-secondary">View Products</a>
+                </div>
+            </div>
+            <div class="banner-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=entropy&auto=format&q=80" alt="Technology and Innovation" class="hero-img">
+            </div>
+        </div>
+        <div class="banner-stats">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Product Reviews</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50K+</span>
+                <span class="stat-label">Monthly Readers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100+</span>
+                <span class="stat-label">Platform Guides</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search articles..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filter-tags">
+                <button class="filter-tag active" data-category="all">All</button>
+                <button class="filter-tag" data-category="product-reviews">Product Reviews</button>
+                <button class="filter-tag" data-category="platform-guides">Platform Guides</button>
+                <button class="filter-tag" data-category="tech-tips">Tech Tips</button>
+                <button class="filter-tag" data-category="lifestyle">Lifestyle</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Posts Section -->
+    <section class="featured-posts" id="featured-posts">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            <div class="posts-grid" id="postsGrid">
+                <!-- Articles will be dynamically loaded here -->
+            </div>
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Widget -->
+    <div class="social-widget">
+        <a href="https://twitter.com/complexcentral" target="_blank" class="social-link" title="Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://facebook.com/complexcentral" target="_blank" class="social-link" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com/complexcentral" target="_blank" class="social-link" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://linkedin.com/company/complexcentral" target="_blank" class="social-link" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://youtube.com/complexcentral" target="_blank" class="social-link" title="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">ComplexCentral</h3>
+                    <p class="footer-description">Your ultimate guide to navigating the complex world of technology, products, and digital platforms.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-category="product-reviews">Product Reviews</a></li>
+                        <li><a href="#" data-category="platform-guides">Platform Guides</a></li>
+                        <li><a href="#" data-category="tech-tips">Tech Tips</a></li>
+                        <li><a href="#" data-category="lifestyle">Lifestyle</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="footer-social">
+                        <a href="https://twitter.com/complexcentral" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://facebook.com/complexcentral" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/complexcentral" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/complexcentral" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ComplexCentral. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
