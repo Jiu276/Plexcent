@@ -599,7 +599,7 @@ function generateArticleHTML(post) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${post.title} - ComplexCentral</title>
+    <title>${post.title} - plexcent</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/article.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -610,7 +610,7 @@ function generateArticleHTML(post) {
         <nav class="nav">
             <div class="nav-container">
                 <a href="index.html" class="nav-logo">
-                    <span class="logo-text">ComplexCentral</span>
+                    <span class="logo-text">plexcent</span>
                 </a>
                 <a href="index.html" class="back-link">
                     <i class="fas fa-arrow-left"></i> Back to Home
